@@ -1,0 +1,6 @@
+server:
+  context-path: /iot
+  port: 14010
+  compression: true
+  session:
+    timeout: 1800  # 30*60 seconds
