@@ -1,5 +1,4 @@
-neo:
-  hello: yml hello!
+name: zhuyinkui
 server:
   context-path: /iot
   port: 14010
