@@ -1,0 +1,3 @@
+my-config:
+  appName: dev
+  debugMode: true
