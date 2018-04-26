@@ -1,7 +1,2 @@
 name: zhuyinkui
-server:
-  context-path: /iot
-  port: 14011
-  compression: true
-  session:
-    timeout: 1800  # 30*60 seconds
+dad: zhulixing
