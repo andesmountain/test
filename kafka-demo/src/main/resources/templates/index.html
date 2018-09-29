@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<button onclick="btnClick()">点我发送消息</button>
+<br/>
+获得消息：
+<textarea id="area" style="width:300px;height:500px;">
+
+
+</textarea>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script th:src="@{/js/websocket.js}"></script>
+
+</body>
+</html>
