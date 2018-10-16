@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yuqiyu.chapter24.rwtest.mapper.SRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.yuqiyu.chapter24.rwtest.entity.SRole" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="UPDATOR" property="updator" jdbcType="VARCHAR" />
+    <result column="MANAGE_PROVINCE" property="manageProvince" jdbcType="VARCHAR" />
+    <result column="MANAGE_CITY" property="manageCity" jdbcType="VARCHAR" />
+    <result column="MANAGE_COUNTY" property="manageCounty" jdbcType="VARCHAR" />
+  </resultMap>
+    <select id="findByConds"  resultMap="BaseResultMap">
+  		SELECT * FROM S_ROLE where 1=1
+         <if test="roleName!=null and roleName!=''">
+	  		and  ROLE_NAME = #{roleName}
+	  	</if>
+		<if test="roleType!=null and roleType!=''">
+	  		and  ROLE_TYPE = #{roleType}
+	  	</if>
+	  	ORDER BY ROLE_CODE ASC
+  </select>
+     <select id="findMaxRoleCode"  resultType="java.lang.String">
+    	SELECT MAX(ROLE_CODE) FROM S_ROLE 
+	</select>
+  <select id="checkRoleNameIsExists" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		SELECT nvl(count(*),0)  FROM S_ROLE where ROLE_NAME = #{menuName}
+  </select>
+    <select id="checkRoleCodeIsExists" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		SELECT nvl(count(*),0)  FROM S_ROLE where ROLE_CODE = #{roleCode}
+  </select>
+  <select id="canDelete"  resultType="java.lang.Integer">
+			select (select count(*) from S_USER_ROLE where ROLE_ID=#{roleId})  from dual
+  </select>
+       <select id="selectAllExculdeSuperRole"   resultMap="BaseResultMap">
+    	SELECT * FROM S_ROLE where 1=1
+           <if test="roleCode!=null and roleCode!=''">
+               and <![CDATA[ ROLE_CODE <>#{roleCode} ]]>
+           </if>
+           <if test="roleType!=null and roleType!=''">
+               and  ROLE_TYPE = #{roleType}
+           </if>
+	</select>
+	<select id="selectByRoleCode"   resultMap="BaseResultMap">
+    	SELECT * FROM S_ROLE where ROLE_CODE =#{roleCode}
+	</select>
+    <select id="queryByUserid"   resultMap="BaseResultMap">
+        SELECT * FROM S_ROLE r, S_USER_ROLE u where r.ROLE_ID=u.ROLE_ID AND u.USER_ID=#{userid}
+    </select>
+</mapper>

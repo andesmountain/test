@@ -1,0 +1,13 @@
+com\yuqiyu\chapter24\book\bean\BookBean.class
+com\yuqiyu\chapter24\book\controller\BookController.class
+com\yuqiyu\chapter24\base\jpa\BaseDAO.class
+com\yuqiyu\chapter24\book\jpa\BookJPA.class
+com\yuqiyu\chapter24\user\controller\UserController.class
+com\yuqiyu\DataSourceConfigurer.class
+com\yuqiyu\ServletInitializer.class
+com\yuqiyu\BookDataSourceConfigurer.class
+com\yuqiyu\UserDataSourceConfigurer.class
+com\yuqiyu\chapter24\MyExceptionHandler.class
+com\yuqiyu\chapter24\user\bean\UserBean.class
+com\yuqiyu\Chapter24Application.class
+com\yuqiyu\chapter24\user\jpa\UserJPA.class

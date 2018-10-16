@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yuqiyu.chapter24.test.mapper.SOperationLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yuqiyu.chapter24.test.entity.SOperationLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="FUNC_ID" property="funcId" jdbcType="VARCHAR" />
+    <result column="FUNC_NAME" property="funcName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="REQUEST_IP" property="requestIp" jdbcType="VARCHAR" />
+    <result column="LOG_MESSAGE" property="logMessage" jdbcType="VARCHAR" />
+    <result column="LOG_DATE" property="logDate" jdbcType="TIMESTAMP" />
+    <result column="OPERA_DESC" property="operaDesc" jdbcType="VARCHAR" />
+    <result column="OPERA_RESULT" property="operaResult" jdbcType="VARCHAR" />
+    <result column="TEMP1" property="temp1" jdbcType="VARCHAR" />
+    <result column="TEMP2" property="temp2" jdbcType="VARCHAR" />
+    <result column="TEMP3" property="temp3" jdbcType="VARCHAR" />
+    <result column="URL_PARAM" property="urlParam" jdbcType="VARCHAR" />
+    <result column="PAGE_NAME" property="pageName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+  <select id="queryUserLogList" resultMap="BaseResultMap">
+      select a.* from(
+      select * from S_OPERATION_LOG
+      where 1=1
+      <if test="username!=null and username!=''">
+         and  user_name=#{username}
+      </if>
+      <if test="startLogDate!=null and startLogDate!=''">
+         AND LOG_DATE &gt;= to_date(#{startLogDate},'yyyy-MM-dd HH24:mi:ss')
+      </if>
+      <if test="endLogDate !=null and endLogDate!= '' ">
+         AND LOG_DATE &lt;= to_date(#{endLogDate},'yyyy-MM-dd HH24:mi:ss')
+      </if>
+      )a
+      <if test="funcId!=null and funcId!=''">
+         inner join (
+          SELECT menu_id FROM s_menu START WITH MENU_ID = #{funcId} CONNECT BY PRIOR MENU_ID   = menu_pid
+          )b on a.func_id = b.menu_id
+      </if>
+      order by a.id desc
+
+  </select>
+
+
+</mapper>
